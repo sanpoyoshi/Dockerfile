@@ -1,18 +1,22 @@
 #------------------------------
-#環境構築
+#初回：環境構築
 #------------------------------
 #Dockerfile
 docker build .
 
-#macbookpro01
-Successfully built ea455dfb8c8b
+#macbookpro01 : 2020年 6月27日 土曜日 17時50分38秒 JST
+Successfully built 3dc6aa31ea44
+
 
 #------------------------------
-#起動
+#コンテナ起動
 #------------------------------
-pIMAGE_ID=ea455dfb8c8b
-
+pIMAGE_ID=3dc6aa31ea44
 docker run -p 8888:8888 -v ~/Desktop/ds_python:/work --name my-lab ${pIMAGE_ID}
+
+#ブラウザで下記にアクセス
+http://0.0.0.0:8888/
+
 
 #------------------------------
 #git push
@@ -24,7 +28,7 @@ docker run -p 8888:8888 -v ~/Desktop/ds_python:/work --name my-lab ${pIMAGE_ID}
 #Docker Commands
 #------------------------------
 
-動いているコンテナ一覧
+#動いているコンテナ一覧
 docker ps
 
 #停止しているコンテナ一覧
@@ -39,4 +43,11 @@ docker images
 #イメージの削除
 docker rmi [イメージID]
 
+#コンテナの保存
+docker commit {コンテナ名またはID} {新しいDocker image名}:{tag}
+
+docker commit sanpoyoshi/01_ubuntsu_anaconda3
+
+#Docker hubにPUSH
+docker push sanpoyoshi/01_ubuntsu_anaconda3
 
