@@ -1,0 +1,42 @@
+#------------------------------
+#環境構築
+#------------------------------
+#Dockerfile
+docker build .
+
+#macbookpro01
+Successfully built ea455dfb8c8b
+
+#------------------------------
+#起動
+#------------------------------
+pIMAGE_ID=ea455dfb8c8b
+
+docker run -p 8888:8888 -v ~/Desktop/ds_python:/work --name my-lab ${pIMAGE_ID}
+
+#------------------------------
+#git push
+#------------------------------
+
+
+
+#------------------------------
+#Docker Commands
+#------------------------------
+
+動いているコンテナ一覧
+docker ps
+
+#停止しているコンテナ一覧
+docker ps -a
+
+＃コンテナの削除
+docker rm [コンテナID]
+
+#view imaeges
+docker images
+
+#イメージの削除
+docker rmi [イメージID]
+
+
