@@ -51,3 +51,11 @@ docker commit sanpoyoshi/01_ubuntsu_anaconda3
 #Docker hubにPUSH
 docker push sanpoyoshi/01_ubuntsu_anaconda3
 
+#全コンテナ停止
+docker stop $(docker ps -q)
+
+#全コンテナ削除
+docker rm $(docker ps -q -a)
+
+#全イメージ削除
+docker rmi $(docker images -q)
