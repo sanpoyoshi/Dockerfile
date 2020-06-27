@@ -15,6 +15,14 @@ sudo \
 wget \
 vim
 
+# Japanese
+RUN apt-get install -y locales
+RUN locale-gen ja_JP.UTF-8
+RUN localedef -f UTF-8 -i ja_JP ja_JP
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:jp
+ENV LC_ALL ja_JP.UTF-8
+
 #install anaconda3
 WORKDIR /opt
 # download anaconda package and install anaconda
@@ -70,13 +78,6 @@ RUN mkdir /work
 WORKDIR /opt/app
 COPY requirements.txt /opt/app
 RUN pip install -r requirements.txt
-
-
-# 日本語環境
-RUN apt-get install -y language-pack-ja-base language-pack-ja
-RUN locale-gen ja_JP.UTF-8
-ENV LANGUAGE ja_JP.UTF-8
-ENV LANG ja_JP.UTF-8
 
 
 # execute jupyterlab as a default command
