@@ -14,6 +14,9 @@ sudo \
 wget \
 vim
 
+RUN apt -y install language-pack-ja
+RUN apt-get install language-pack-ja-base language-pack-ja
+RUN apt -y  install fonts-takao
 
 # Japanese
 RUN apt-get install -y locales
@@ -29,7 +32,15 @@ RUN apt update && apt install -y tzdata && apt clean && rm -rf /var/lib/apt/list
 ENV TZ Asia/Tokyo
 
 
+RUN apt-get update && apt-get install -y language-pack-ja && \
+    update-locale LANG=ja_JP.UTF-8 && rm -rf /var/lib/apt/lists/*
+ENV LANG ja_JP.UTF-8
+ENV LANGUAGE ja_JP:ja
+ENV LC_ALL ja_JP.UTF-8
+
+#============
 #install anaconda3
+#============
 WORKDIR /opt
 # download anaconda package and install anaconda
 # archive -> https://repo.continuum.io/archive/
@@ -39,14 +50,36 @@ rm -f Anaconda3-2020.02-Linux-x86_64.sh
 # set path
 ENV PATH /opt/anaconda3/bin:$PATH
 
-# update pip and conda
+# update pip
 WORKDIR /opt/app
 RUN pip install --upgrade pip
+
+#C++ for neologdn
+RUN apt-get update && \
+    apt-get install -y build-essential cmake clang libssl-dev vim
+
+#
+WORKDIR /opt/app
+COPY requirements.txt /opt/app
+RUN pip install -r requirements.txt
+
+#tor
+RUN apt install -y tor
+
+#selenium
+RUN pip install -U selenium
+#beautifulsoup4
+RUN pip install beautifulsoup4
+
+#emoji
+RUN pip install emoji --upgrade
+
 
 #FireFox
 #=========
 # Firefox
 #=========
+WORKDIR /opt/app
 ARG FIREFOX_VERSION=latest
 RUN FIREFOX_DOWNLOAD_URL=$(if [ $FIREFOX_VERSION = "latest" ] || [ $FIREFOX_VERSION = "nightly-latest" ] || [ $FIREFOX_VERSION = "devedition-latest" ]; then echo "https://download.mozilla.org/?product=firefox-$FIREFOX_VERSION-ssl&os=linux64&lang=en-US"; else echo "https://download-installer.cdn.mozilla.net/pub/firefox/releases/$FIREFOX_VERSION/linux-x86_64/en-US/firefox-$FIREFOX_VERSION.tar.bz2"; fi) \
   && apt-get update -qqy \
@@ -73,12 +106,6 @@ RUN GK_VERSION=$(if [ ${GECKODRIVER_VERSION:-latest} = "latest" ]; then echo "0.
   && mv /opt/geckodriver /opt/geckodriver-$GK_VERSION \
   && chmod 755 /opt/geckodriver-$GK_VERSION \
   && ln -fs /opt/geckodriver-$GK_VERSION /usr/bin/geckodriver
-
-
-#selenium & beautifulsoup4
-WORKDIR /opt/app
-COPY requirements.txt /opt/app
-RUN pip install -r requirements.txt
 
 
 #作業用ディレクトリ
