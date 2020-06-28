@@ -4,18 +4,28 @@
 #Dockerfile
 docker build .
 
-#macbookpro01 : 2020年 6月27日 土曜日 17時50分38秒 JST
-Successfully built 3dc6aa31ea44
+#macbookpro01 : 2020年 6月27日 土曜日 23時00分 JST
+Successfully built 8c2a1cf06017
 
 
 #------------------------------
 #コンテナ起動
 #------------------------------
-pIMAGE_ID=3dc6aa31ea44
+pIMAGE_ID=8c2a1cf06017
 docker run -p 8888:8888 -v ~/Desktop/ds_python:/work --name my-lab ${pIMAGE_ID}
 
-#ブラウザで下記にアクセス
-http://0.0.0.0:8888/
+
+#ブラウザで下記にアクセス jyupiter labo
+http://localhost:8888/
+
+
+
+#
+docker commit -m "20200627 ver1.0" <コンテナID> tomi-centos-templage:6.6
+
+docker commit sanpoyoshi/01_ubuntsu_anaconda3
+#Docker hubにPUSH
+docker push sanpoyoshi/01_ubuntsu_anaconda3
 
 
 #------------------------------
@@ -50,6 +60,8 @@ docker commit sanpoyoshi/01_ubuntsu_anaconda3
 
 #Docker hubにPUSH
 docker push sanpoyoshi/01_ubuntsu_anaconda3
+
+
 
 #全コンテナ停止
 docker stop $(docker ps -q)

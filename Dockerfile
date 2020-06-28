@@ -6,7 +6,6 @@
 #Anaconda3-2019.10-Linux-x86_64.sh
 #Anaconda3-2019.03-Linux-x86_64.sh
 
- 
 FROM ubuntu:latest
 
 # update
@@ -15,6 +14,7 @@ sudo \
 wget \
 vim
 
+
 # Japanese
 RUN apt-get install -y locales
 RUN locale-gen ja_JP.UTF-8
@@ -22,6 +22,12 @@ RUN localedef -f UTF-8 -i ja_JP ja_JP
 ENV LANG ja_JP.UTF-8
 ENV LANGUAGE ja_JP:jp
 ENV LC_ALL ja_JP.UTF-8
+
+
+# timezone to Asia/Tokyo.
+RUN apt update && apt install -y tzdata && apt clean && rm -rf /var/lib/apt/lists/*
+ENV TZ Asia/Tokyo
+
 
 #install anaconda3
 WORKDIR /opt
@@ -69,15 +75,15 @@ RUN GK_VERSION=$(if [ ${GECKODRIVER_VERSION:-latest} = "latest" ]; then echo "0.
   && ln -fs /opt/geckodriver-$GK_VERSION /usr/bin/geckodriver
 
 
-#作業用ディレクトリ
-WORKDIR /
-RUN mkdir /work
-
-
-#selenium & beautifulsoup4 & FireFox
+#selenium & beautifulsoup4
 WORKDIR /opt/app
 COPY requirements.txt /opt/app
 RUN pip install -r requirements.txt
+
+
+#作業用ディレクトリ
+WORKDIR /
+RUN mkdir /work
 
 
 # execute jupyterlab as a default command
