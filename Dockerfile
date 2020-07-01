@@ -115,3 +115,4 @@ RUN mkdir /work
 
 # execute jupyterlab as a default command
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]
+

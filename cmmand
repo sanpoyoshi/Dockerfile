@@ -1,17 +1,18 @@
 #------------------------------
 #初回：環境構築
 #------------------------------
-#Dockerfile
-docker build .
 
-#macbookpro01 : 2020年 6月27日 土曜日 23時00分 JST
-Successfully built 5aae9122a1c2
+#Dockerfile
+# MacBook Pro 2017 9:21 - 
+docker build . && date
+Successfully built 317437c07e7f
+2020年 7月 1日 水曜日 09時28分32秒 JST
 
 
 #------------------------------
 #コンテナ起動
 #------------------------------
-pIMAGE_ID=5aae9122a1c2
+pIMAGE_ID=317437c07e7f
 docker run -p 8888:8888 -v ~/Desktop/ds_python:/work --name ds_python ${pIMAGE_ID}
 
 
