@@ -1,0 +1,27 @@
+
+docker pull mysql:5.7.25
+docker pull wordpress
+
+
+
+#実行 2020/07/04
+#docker run -d –-name mysql5.7.25 -e MYSQL_ROOT_PASSWORD=passw
+#docker run -it --name mysql5.7.25 -e MYSQL_ROOT_PASSWORD=mysql -d mysql:5.7.25
+
+#ver1.1
+#docker run -it --name mysql5.7.25 --net lan01 -p 3306:3306 -p 33060:33060 -e MYSQL_ROOT_PASSWORD=mysql -d mysql:5.7.25 
+#ver 1.2
+docker run -it --name mysql5.7.25 --net lan01 -p 3306:3306 -p 33060:33060 -e MYSQL_ROOT_PASSWORD=mysql -e TZ=Asia/Tokyo -d mysql:5.7.25 
+
+
+#run wordpress
+#docker run --name wordpress --link mysql5.7.25:mysql -d -p 8777:80 wordpress
+
+#ver1.1
+#docker run --name wordpress --net lan01 -e WORDPRESS_DB_HOST=mysql5.7.25 -e WORDPRESS_DB_PASSWORD=mysql -p 8777:80 -d wordpress
+
+
+#Access
+http://localhost:8777
+
+

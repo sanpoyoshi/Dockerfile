@@ -112,6 +112,8 @@ RUN GK_VERSION=$(if [ ${GECKODRIVER_VERSION:-latest} = "latest" ]; then echo "0.
 WORKDIR /
 RUN mkdir /work
 
+#Jupiter lab　設定プロファイル（マウントしたディレクトリ内）
+JUPYTER_CONFIG_DIR=/work/99_JUPYTER_CONFIG_DIR
 
 # execute jupyterlab as a default command
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]
