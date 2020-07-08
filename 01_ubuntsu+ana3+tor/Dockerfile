@@ -14,11 +14,11 @@ sudo \
 wget \
 vim
 
+# Japanese
 RUN apt -y install language-pack-ja
 RUN apt-get install language-pack-ja-base language-pack-ja
 RUN apt -y  install fonts-takao
 
-# Japanese
 RUN apt-get install -y locales
 RUN locale-gen ja_JP.UTF-8
 RUN localedef -f UTF-8 -i ja_JP ja_JP
@@ -26,17 +26,13 @@ ENV LANG ja_JP.UTF-8
 ENV LANGUAGE ja_JP:jp
 ENV LC_ALL ja_JP.UTF-8
 
-
 # timezone to Asia/Tokyo.
 RUN apt update && apt install -y tzdata && apt clean && rm -rf /var/lib/apt/lists/*
 ENV TZ Asia/Tokyo
 
-
 RUN apt-get update && apt-get install -y language-pack-ja && \
     update-locale LANG=ja_JP.UTF-8 && rm -rf /var/lib/apt/lists/*
-ENV LANG ja_JP.UTF-8
-ENV LANGUAGE ja_JP:ja
-ENV LC_ALL ja_JP.UTF-8
+
 
 #============
 #install anaconda3
@@ -58,6 +54,13 @@ RUN pip install --upgrade pip
 RUN apt-get update && \
     apt-get install -y build-essential cmake clang libssl-dev vim
 
+
+#jyupiter lab extension
+#RUN conda install -c conda-forge nodejs
+
+#RUN jupyter labextension install "@krassowski/jupyterlab-lsp"
+#RUN jupyter labextension install @lckr/jupyterlab_variableinspector
+
 #
 WORKDIR /opt/app
 COPY requirements.txt /opt/app
@@ -73,6 +76,9 @@ RUN pip install beautifulsoup4
 
 #emoji
 RUN pip install emoji --upgrade
+
+
+
 
 
 #FireFox
@@ -108,12 +114,17 @@ RUN GK_VERSION=$(if [ ${GECKODRIVER_VERSION:-latest} = "latest" ]; then echo "0.
   && ln -fs /opt/geckodriver-$GK_VERSION /usr/bin/geckodriver
 
 
+
+
+
+
+
+
 #作業用ディレクトリ
 WORKDIR /
 RUN mkdir /work
 
-#Jupiter lab　設定プロファイル（マウントしたディレクトリ内）
-JUPYTER_CONFIG_DIR=/work/99_JUPYTER_CONFIG_DIR
+
 
 # execute jupyterlab as a default command
 CMD ["jupyter", "lab", "--ip=0.0.0.0", "--allow-root", "--LabApp.token=''"]

@@ -8,6 +8,9 @@ docker build . && date
 Successfully built 317437c07e7f
 2020年 7月 1日 水曜日 09時28分32秒 JST
 
+2020 0707
+Successfully built 02dcaa1028ba
+
 
 #net 設定
 docker network create lan01
