@@ -13,7 +13,11 @@ Successfully built 02dcaa1028ba
 
 
 #net 設定
-docker network create lan01
+
+
+
+
+
 
 #------------------------------
 #コンテナ起動
@@ -28,6 +32,8 @@ docker run -p 8888:8888 -v ~/Desktop/ds_python:/work  --net lan01 --name ds_pyth
 # ver02
 docker run -p 8888:8888 -v ~/Desktop/ds_python:/work -h mac2017 --net lan01 -e MYSQL_ROOT_PASSWORD=mysql -e JUPYTER_CONFIG_DIR=/work/99_JUPYTER_CONFIG_DIR --name ds_python02 ${pIMAGE_ID} 
 
+#win10
+docker run -p 8888:8888 -v C:/Users/2017122/GoogleDrive/ds_python:/work -h win10 --net lan01   --name ds_python 0b4ee40beaef 
 
 
 
